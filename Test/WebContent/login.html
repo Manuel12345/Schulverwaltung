@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style text="style/css">
+	.border{
+		position:absolute;
+		left:50%;
+		top:50%;
+		width:400px;
+		height:200px;
+		margin-left:-200px;
+		margin-top:-100px;
+		border:1px solid green;	
+	}
+	.border b{
+		position:relative;
+		left:120px;
+	}
+	.border input[type=submit]{
+		position:relative;
+		top:20%;
+		left:1%;
+	}
+
+</style>
+</head>
+<body>
+	<form method="get" action="LoginServlet">
+	<div class = "border">
+		<b>Login Schulverwaltung</b>
+		<div class="loginTable">
+		<table>
+			<colgroup>
+				<col width="20%"/>
+				<col width="80%"/>
+			</colgroup>
+			<tr>
+				<td colspan="2" height="50px">&nbsp;</td>
+			</tr>
+			<tr>
+				<td><label for="loginname">Name:</label></td>
+				<td><input type="text" name="loginname" id="loginname"/></td>
+			</tr>
+			<tr>
+				<td><label for="passwort">Passwort:</label></td>
+				<td><input type="password" name="passwort" id="passwort"/></td>
+			</tr>
+		</table>
+		</div>
+		<input type="submit" value="Login"/>
+	</div>
+	</form>
+</body>
+</html>
