@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>Test</display-name>
+  <display-name>sv</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -28,5 +28,35 @@
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginServelet</display-name>
+    <servlet-name>LoginServelet</servlet-name>
+    <servlet-class>Controls.LoginServelet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServelet</servlet-name>
+    <url-pattern>/LoginServelet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetUserDataServlet</display-name>
+    <servlet-name>GetUserDataServlet</servlet-name>
+    <servlet-class>Controls.GetUserDataServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetUserDataServlet</servlet-name>
+    <url-pattern>/GetUserDataServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangeUserDataServlet</display-name>
+    <servlet-name>ChangeUserDataServlet</servlet-name>
+    <servlet-class>Controls.ChangeUserDataServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangeUserDataServlet</servlet-name>
+    <url-pattern>/ChangeUserDataServlet</url-pattern>
   </servlet-mapping>
 </web-app>

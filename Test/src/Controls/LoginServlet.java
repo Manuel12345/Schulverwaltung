@@ -2,64 +2,68 @@ package Controls;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import database.DBAuslesen;
 
 /**
- * Servlet implementation class ControlServlet
+ * Servlet implementation class LoginServelet
  */
-public class ControlServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ControlServlet() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		PrintWriter out = response.getWriter();
-		String ergebnis;
 		try
 		{
 			String userName = request.getParameter("UserName");
 			String passwort = request.getParameter("Password");
-			String anrede = request.getParameter("anrede");
-			String vorname = request.getParameter("vorname");
-			String nachname = request.getParameter("nachname");
-			if(passwort != "" && userName != "" && anrede != "Bitte auswaehlen..." && vorname != "" && nachname != ""){
-				String passwortBase64Encoded =  Base64.encode(passwort.getBytes());
-				DBAuslesen db = new DBAuslesen();
-				ergebnis = db.registerNewUser(userName, passwortBase64Encoded, anrede, vorname, nachname);
-			}
-		    else{
-		    	ergebnis = "Bitte füllen Sie alle Pflichtfelder aus! <a href='register.html'>LINK</a>";
-		    }
-		   
-			request.setAttribute("ergebnis", ergebnis);
-			RequestDispatcher view = request.getRequestDispatcher("/jsp/register.jsp");
-			view.forward(request, response);
+			/*byte [] passwortDecoded =  Base64.decode(passwort);
+			passwort = passwortDecoded.toString();*/
+			DBAuslesen db = new DBAuslesen();
+			ArrayList  liste = new ArrayList();
+			liste = db.loginUser(userName, passwort);
+			if(liste.size()!= 0){
+				byte [] passwortDecoded =  Base64.decode(liste.get(0).toString());
+				passwort = new String(passwortDecoded);
+				String userData = db.getUserData(userName);
+				request.setAttribute("pw", passwort);
+				request.setAttribute("params", userData);			
 			
+			
+				RequestDispatcher view = request.getRequestDispatcher("./jsp/sessionAction.jsp");
+				view.forward(request, response);
+			}
+			else{
+				RequestDispatcher view = request.getRequestDispatcher("login.html");
+				view.forward(request, response);
+			}
+		
 		}
 		catch(Exception ex)
 		{
 			out.print(ex.getMessage());
 		}
 	}
+    
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
